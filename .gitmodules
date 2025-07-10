@@ -1,0 +1,31 @@
+[submodule "PixieEngine/Vendor/GLFW"]
+	path = PixieEngine/Vendor/GLFW
+	url = https://github.com/glfw/glfw
+[submodule "PixieEngine/Vendor/SPDLOG"]
+	path = PixieEngine/Vendor/SPDLOG
+	url = https://github.com/gabime/spdlog
+[submodule "PixieEngine/Vendor/ImGui"]
+	path = PixieEngine/Vendor/ImGui
+	url = https://github.com/ocornut/imgui
+	branch = docking
+[submodule "PixieEngine/Vendor/STB"]
+	path = PixieEngine/Vendor/STB
+	url = https://github.com/nothings/stb
+[submodule "PixieEngine/Vendor/GLM"]
+	path = PixieEngine/Vendor/GLM
+	url = https://github.com/g-truc/glm
+[submodule "PixieEngine/Vendor/BOX2D"]
+	path = PixieEngine/Vendor/BOX2D
+	url = https://github.com/erincatto/box2d
+[submodule "PixieEngine/Vendor/OpenAL"]
+	path = PixieEngine/Vendor/OpenAL
+	url = https://github.com/kcat/openal-soft
+[submodule "PixieEngine/Vendor/YamlCPP"]
+	path = PixieEngine/Vendor/YamlCPP
+	url = https://github.com/jbeder/yaml-cpp
+[submodule "PixieEngine/Vendor/TRACY"]
+	path = PixieEngine/Vendor/TRACY
+	url = https://github.com/wolfpld/tracy
+[submodule "PixieEngine/Vendor/Box2D"]
+	path = PixieEngine/Vendor/Box2D
+	url = https://github.com/erincatto/box2d
