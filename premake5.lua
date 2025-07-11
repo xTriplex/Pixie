@@ -1,6 +1,4 @@
-﻿-- premake5.lua for PixieEngine workspace
-
-workspace "PixieEngine"
+﻿workspace "PixieEngine"
     architecture "x64"
     startproject "Sandbox"
 
@@ -52,14 +50,25 @@ project "PixieEngine"
 
     files {
         "PixieEngine/Source/**.h",
-        "PixieEngine/Source/**.cpp"
+        "PixieEngine/Source/**.cpp",
+       
+        "PixieEngine/Shaders/**.vert",
+        "PixieEngine/Shaders/**.frag",
+        "PixieEngine/Shaders/**.glsl"
     }
 
+    -- disable PCH for stb_image
     filter "files:PixieEngine/Vendor/STB/stb_image.cpp"
         flags { "NoPCH" }
     filter {}
 
+    -- exclude shader files from build
+    filter "files:PixieEngine/Shaders/**"
+        flags { "ExcludeFromBuild" }
+    filter {}
+
     includedirs {
+        "PixieEngine/Source",
         "PixieEngine/Source/Public",
         "PixieEngine/Source/Private",
         IncludeDir.GLFW,
@@ -95,31 +104,30 @@ project "PixieEngine"
     filter {}
 
     filter "configurations:Debug"
-        defines { "PX_DEBUG", "PX_ENABLE_ASSERTS" }
         runtime "Debug"
         symbols "On"
         optimize "Off"
     filter {}
 
     filter "configurations:Release"
-        defines "PX_RELEASE"
-        runtime "Release"
-        symbols "On"
-        optimize "Speed"
-        inlining "Auto"
-        linktimeoptimization "On"
-        buildoptions { "/arch:AVX2", "/fp:fast" }
-    filter {}
+    runtime "Release"
+    symbols "On"
+    optimize "Speed"
+    inlining "Auto"
+    linktimeoptimization "On"
+    buildoptions { "/arch:AVX2", "/fp:fast" }
+    removebuildoptions { "/fp:precise" }
+filter {}
 
-    filter "configurations:Dist"
-        defines "PX_DIST"
-        runtime "Release"
-        symbols "Off"
-        optimize "Speed"
-        inlining "Auto"
-        linktimeoptimization "On"
-        buildoptions { "/arch:AVX2", "/fp:fast" }
-    filter {}
+filter "configurations:Dist"
+    runtime "Release"
+    symbols "Off"
+    optimize "Speed"
+    inlining "Auto"
+    linktimeoptimization "On"
+    buildoptions { "/arch:AVX2", "/fp:fast" }
+    removebuildoptions { "/fp:precise" }
+filter {}
 
 --
 -- Sandbox Application
@@ -160,19 +168,18 @@ project "Sandbox"
         defines { "PX_PLATFORM_WINDOWS" }
         buildoptions "/utf-8"
         postbuildcommands {
-            '{COPY} "%{wks.location}/Sandbox/Content" "%{cfg.targetdir}/Content"'
+            '{COPY} "%{wks.location}/Sandbox/Content" "%{cfg.targetdir}/Content"',
+            '{COPYDIR} "%{wks.location}/PixieEngine/Shaders" "%{cfg.targetdir}/Shaders"'
         }
     filter {}
 
     filter "configurations:Debug"
-        defines   "PX_DEBUG"
         runtime   "Debug"
         symbols   "On"
         optimize "Off"
     filter {}
 
     filter "configurations:Release"
-        defines   "PX_RELEASE"
         runtime   "Release"
         symbols   "On"
         optimize "Speed"
@@ -182,9 +189,8 @@ project "Sandbox"
     filter {}
 
     filter "configurations:Dist"
-        defines   "PX_DIST"
         runtime   "Release"
-        symbols   "Off"
+        symbols "Off"
         optimize "Speed"
         inlining "Auto"
         linktimeoptimization "On"

@@ -1,4 +1,7 @@
+#include <iostream>
+
 int main()
 {
-	return 0;
+	std::cout << "Test!\n";
+	std::cin.get();
 }
